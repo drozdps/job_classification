@@ -33,7 +33,7 @@ class NaiveBayesAlgorithm(val ap: AlgorithmParams)
   def predict(model: NaiveBayesModel, query: Query): PredictedResult = {
     val features = SyntheticFeatures.transform(
       Vectors.dense(
-        Array(query.voice_usage, query.data_usage, query.text_usage)
+        Array(query.owner_type, query.plumbing, query.hazard, query.city_owned, query.landmarked, query.building_type, query.job_type, query.borough)
       )
     )
     val label = model.predict(features)

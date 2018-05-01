@@ -7,3 +7,9 @@ bin/pio
 .env
 PredictionIO-dist/
 repo/
+
+bin/pio
+bin/dotenv
+.env
+PredictionIO-dist/
+repo/

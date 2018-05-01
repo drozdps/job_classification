@@ -27,18 +27,23 @@ class DataSource(val dsp: DataSourceParams)
 
     val labeledPoints: RDD[LabeledPoint] = PEventStore.aggregateProperties(
       appName = sys.env("PIO_EVENTSERVER_APP_NAME"),
-      entityType = "user",
+      entityType = "job",
       // only keep entities with these required properties defined
-      required = Some(List("service_plan", "voice_usage", "data_usage", "text_usage")))(sc)
+      required = Some(List("owner_type", "plumbing", "hazard", "city_owned","landmarked","building_type","job_type","borough","apps_num")))(sc)
       // aggregateProperties() returns RDD pair of
       // entity ID and its aggregated properties
       .map { case (entityId, properties) =>
         try {
-          LabeledPoint(properties.get[Double]("service_plan"),
+          LabeledPoint(properties.get[Double]("apps_num"),
             Vectors.dense(Array(
-              properties.get[Double]("voice_usage"),
-              properties.get[Double]("data_usage"),
-              properties.get[Double]("text_usage")
+              properties.get[Double]("owner_type"),
+              properties.get[Double]("plumbing"),
+              properties.get[Double]("hazard"),
+              properties.get[Double]("city_owned"),
+              properties.get[Double]("landmarked"),
+              properties.get[Double]("building_type"),
+              properties.get[Double]("job_type"),
+              properties.get[Double]("borough")
             ))
           )
         } catch {
@@ -65,18 +70,23 @@ class DataSource(val dsp: DataSourceParams)
     // helper.
     val labeledPoints: RDD[LabeledPoint] = PEventStore.aggregateProperties(
       appName = sys.env("PIO_EVENTSERVER_APP_NAME"),
-      entityType = "user",
+      entityType = "job",
       // only keep entities with these required properties defined
-      required = Some(List("service_plan", "voice_usage", "data_usage", "text_usage")))(sc)
+      required = Some(List("owner_type", "plumbing", "hazard", "city_owned","landmarked","building_type","job_type","borough","apps_num")))(sc)
       // aggregateProperties() returns RDD pair of
       // entity ID and its aggregated properties
       .map { case (entityId, properties) =>
         try {
-          LabeledPoint(properties.get[Double]("service_plan"),
+          LabeledPoint(properties.get[Double]("apps_num"),
             Vectors.dense(Array(
-              properties.get[Double]("voice_usage"),
-              properties.get[Double]("data_usage"),
-              properties.get[Double]("text_usage")
+              properties.get[Double]("owner_type"),
+              properties.get[Double]("plumbing"),
+              properties.get[Double]("hazard"),
+              properties.get[Double]("city_owned"),
+              properties.get[Double]("landmarked"),
+              properties.get[Double]("building_type"),
+              properties.get[Double]("job_type"),
+              properties.get[Double]("borough")
             ))
           )
         } catch {
@@ -101,7 +111,7 @@ class DataSource(val dsp: DataSourceParams)
         new TrainingData(trainingPoints),
         new EmptyEvaluationInfo(),
         testingPoints.map {
-          p => (new Query(p.features(0), p.features(1), p.features(2)), new ActualResult(p.label))
+          p => (new Query(p.features(0),p.features(1),p.features(2),p.features(3),p.features(4),p.features(5),p.features(6),p.features(7)),new ActualResult(p.label))
         }
       )
     }

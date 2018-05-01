@@ -4,17 +4,22 @@ import org.apache.predictionio.controller.EngineFactory
 import org.apache.predictionio.controller.Engine
 
 class Query(
-  val voice_usage : Double,
-  val data_usage : Double,
-  val text_usage : Double
+  val owner_type : Double,
+  val plumbing : Double,
+  val hazard : Double,
+  val city_owned : Double,
+  val landmarked : Double,
+  val building_type : Double,
+  val job_type : Double,
+  val borough : Double
 ) extends Serializable
 
 class PredictedResult(
-  val service_plan: Double
+  val apps_num: Double
 ) extends Serializable
 
 class ActualResult(
-  val service_plan: Double
+  val apps_num: Double
 ) extends Serializable
 
 object ClassificationEngine extends EngineFactory {

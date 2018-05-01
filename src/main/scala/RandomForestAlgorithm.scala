@@ -26,7 +26,7 @@ class RandomForestAlgorithm(val ap: RandomForestAlgorithmParams)
   @transient lazy val logger = Logger[this.type]
 
   def train(sc: SparkContext, data: PreparedData): RandomForestModel = {// Empty categoricalFeaturesInfo indicates all features are continuous.
-    val categoricalFeaturesInfo = Map[Int, Int]()
+    val categoricalFeaturesInfo = Map[Int, Int](0 -> 16, 1 -> 4, 2 -> 6, 3 -> 6, 4 ->6, 5 ->3, 6->9, 7->6)
     RandomForest.trainClassifier(
       data.labeledPoints,
       ap.numClasses,
@@ -40,7 +40,7 @@ class RandomForestAlgorithm(val ap: RandomForestAlgorithmParams)
 
   def predict(model: RandomForestModel, query: Query): PredictedResult = {
     val features = Vectors.dense(
-      Array(query.voice_usage, query.data_usage, query.text_usage)
+      Array(query.owner_type, query.plumbing, query.hazard, query.city_owned, query.landmarked, query.building_type, query.job_type, query.borough)
     )
     val label = model.predict(features)
     new PredictedResult(label)

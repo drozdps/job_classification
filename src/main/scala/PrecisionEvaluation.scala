@@ -4,14 +4,14 @@ import org.apache.predictionio.controller.OptionAverageMetric
 import org.apache.predictionio.controller.EmptyEvaluationInfo
 import org.apache.predictionio.controller.Evaluation
 
-case class Precision(service_plan: Double)
+case class Precision(apps_num: Double)
   extends OptionAverageMetric[EmptyEvaluationInfo, Query, PredictedResult, ActualResult] {
-  override def header: String = s"Precision(service_plan = $service_plan)"
+  override def header: String = s"Precision(apps_num = $apps_num)"
 
   def calculate(query: Query, predicted: PredictedResult, actual: ActualResult)
   : Option[Double] = {
-    if (predicted.service_plan == service_plan) {
-      if (predicted.service_plan == actual.service_plan) {
+    if (predicted.apps_num == apps_num) {
+      if (predicted.apps_num == actual.apps_num) {
         Some(1.0)  // True positive
       } else {
         Some(0.0)  // False positive
@@ -23,5 +23,5 @@ case class Precision(service_plan: Double)
 }
 
 object PrecisionEvaluation extends Evaluation {
-  engineMetric = (ClassificationEngine(), new Precision(service_plan = 1.0))
+  engineMetric = (ClassificationEngine(), new Precision(apps_num = 1.0))
 }
