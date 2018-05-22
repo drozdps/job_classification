@@ -1,5 +1,5 @@
 {
-  "id":"org.template.classification.AccuracyEvaluation$ 2016-11-11T23:22:00.000Z",
+  "id":"org.template.classification.AccuracyEvaluation$ 2018-05-22T23:17:11.142+03:00",
   "description":"",
   "engineFactory":"org.template.classification.AccuracyEvaluation$",
   "datasource":{
@@ -19,17 +19,11 @@
       "name":"randomforest",
       "params":{
         "numClasses":13,
-        "numTrees":34,
+        "numTrees":21,
         "featureSubsetStrategy":"auto",
         "impurity":"gini",
-        "maxDepth":4,
+        "maxDepth":2,
         "maxBins":100
-      }
-    },
-    {
-      "name": "naivebayes",
-      "params": {
-        "lambda": 1.0
       }
     }
   ],
